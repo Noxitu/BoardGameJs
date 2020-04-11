@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title Login
+    link(rel='stylesheet' href='/user/css/login.css')
+    script(src='/js/jsonStorage.js')
+    script(src='/user/js/login.js')
+  body
+    form(id='login' method='POST' action='/app/user/login')
+      input(type='text' placeholder='Enter your username...' name='username')
+      button Login
+
+    div(id='previous')
+
+    div(id='go-back')
+      a(href='/') Back to Main Page

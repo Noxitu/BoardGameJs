@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="/css/main.css">
+
+  <style>
+    form img,
+    #known-pictures img {
+      width: 96px;
+      height: 96px;
+      border-radius: 10px;
+    }
+
+    form input {
+      padding: 10px;
+      margin: 25px 10px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr auto auto auto 1fr;
+    }
+
+    form img {
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    form input {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    form button {
+      grid-column: 4;
+      grid-row: 1;
+      margin: 25px 10px;
+    }
+
+    #known-pictures {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+    }
+
+    #known-pictures>div {
+      grid-column: 2;
+      max-width: 660px;
+    }
+
+    #known-pictures img {
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    #known-pictures img:hover {
+      opacity: 0.8;
+    }
+  </style>
+
+  <script src="/js/all.js"></script>
+</head>
+
+<body>
+  <main>
+    <form method="POST" action="/app/user/update-picture">
+      <img src="http://graph.facebook.com/undefined/picture?type=square&height=96&width=96">
+      <input type="text" value="undefined" name="picture">
+      <button>Save Selection</button>
+    </form>
+
+    <div id="known-pictures">
+      <div>
+        <script>
+          socket.on('user:hello', function(msg)
+          {
+            const id = msg.picture
+            document.querySelector('form input').value = id
+            document.querySelector('form img').src = `http://graph.facebook.com/${id}/picture?type=square&height=96&width=96`
+          })
+
+          const ids = [
+            100000356235649,
+            100000918492139, 100000902227437, 100000205543108, 100002938345284, 100001573029529
+          ]
+
+          ids.forEach(id => {
+            document.write(`<img src="http://graph.facebook.com/${id}/picture?type=square&height=96&width=96" onclick="selectPicture(${id})">`)
+          })
+
+          document.querySelector('form input').addEventListener('input', function()
+          {
+            const id = document.querySelector('form input').value
+            document.querySelector('form img').src = `http://graph.facebook.com/${id}/picture?type=square&height=96&width=96`
+          })
+
+          function selectPicture(id)
+          {
+            document.querySelector('form input').value = id
+            document.querySelector('form img').src = `http://graph.facebook.com/${id}/picture?type=square&height=96&width=96`
+          }
+        </script>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
