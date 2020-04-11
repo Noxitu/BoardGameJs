@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "Heroku-deploy": "zenity --question --text 'Deploy local master to heroku?' && git push github master:heroku"
+    }
+}
